@@ -12,6 +12,7 @@ public class LifeGame : MonoBehaviour
     [SerializeField] bool _gameState = false;
 
     Cell[,] _cells;
+    
     private void OnValidate()
     {
         _layOutGroup.constraintCount = _horizontal;
