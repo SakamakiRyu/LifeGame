@@ -12,7 +12,7 @@ public class LifeGame : MonoBehaviour
     [SerializeField] bool _gameState = false;
 
     Cell[,] _cells;
-    
+
     private void OnValidate()
     {
         _layOutGroup.constraintCount = _horizontal;
@@ -30,8 +30,7 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
-
-    void Update()
+    private void FixedUpdate()
     {
         if (_gameState)
         {
@@ -44,6 +43,7 @@ public class LifeGame : MonoBehaviour
             StateChenge();          // セルのステートを変える
         }
     }
+
     void AriveJudg()
     {
         for (int h = 0; h < _horizontal; h++)
@@ -102,7 +102,7 @@ public class LifeGame : MonoBehaviour
             {
                 if (item._count == 3)
                 {
-                    item._nextAliveJudg = false;
+                    item._nextAliveJudg = true;
                 }
                 else
                 {
@@ -155,6 +155,21 @@ public class LifeGame : MonoBehaviour
         foreach (var item in _cells)
         {
             item._aliveJudg = false;
+        }
+    }
+    public void RandamSetting()
+    {
+        foreach (var item in _cells)
+        {
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                item._aliveJudg = true;
+            }
+            else
+            {
+                item._aliveJudg = false;
+            }
         }
     }
 }
