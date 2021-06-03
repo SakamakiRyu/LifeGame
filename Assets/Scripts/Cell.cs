@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
-{   
+{
     /// <summary>現在の生存判定</summary>
     [SerializeField] public bool _aliveJudg = false;
     /// <summary>次の世代の</summary>
@@ -21,11 +21,11 @@ public class Cell : MonoBehaviour
     {
         if (_aliveJudg)
         {
-            _color.color = Color.black;
+            _color.color = Color.blue;
         }
         else
         {
-            _color.color = Color.white;
+            _color.color = Color.yellow;
         }
     }
 
