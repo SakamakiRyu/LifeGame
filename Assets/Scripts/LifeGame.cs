@@ -7,8 +7,8 @@ public class LifeGame : MonoBehaviour
 {
     [SerializeField] Cell _cell = null;
     [SerializeField] GridLayoutGroup _layOutGroup = null;
-    [SerializeField] int _vertical;
-    [SerializeField] int _horizontal;
+    [SerializeField] public int _vertical;
+    [SerializeField] public int _horizontal;
     [SerializeField] bool _gameState = false;
     [SerializeField] Dropdown _cellPatternDropdown;
     [SerializeField] public SetCellPattern _cellPattern = SetCellPattern.None;
@@ -26,8 +26,12 @@ public class LifeGame : MonoBehaviour
         Blinker,
         /// <summary>左上方向に進むグライダー</summary>
         LeftUpGlider,
+        /// <summary>左下方向に進むグライダー</summary>
+        LeftDownGlider,
         /// <summary>右上方向に進むグライダー</summary>
-        RightUPGlider
+        RightUpGlider,
+        /// <summary>右下方向に進むグライダー</summary>
+        RightDownGlider
     }
     private void OnValidate()
     {
@@ -50,6 +54,15 @@ public class LifeGame : MonoBehaviour
     }
     private void Update()
     {
+        if (_cellPattern != 0)
+        {
+            _setmode = false;
+        }
+        else
+        {
+            _setmode = true;
+        }
+
         if (_gameState)
         {
             foreach (var item in _cells)
@@ -198,19 +211,29 @@ public class LifeGame : MonoBehaviour
         switch (_cellPattern)
         {
             case SetCellPattern.None:
-                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+                SetPattarn();
                 break;
             case SetCellPattern.Blinker:
-                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+                SetPattarn();
                 break;
             case SetCellPattern.LeftUpGlider:
-                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+                SetPattarn();
                 break;
-            case SetCellPattern.RightUPGlider:
-                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+            case SetCellPattern.LeftDownGlider:
+                SetPattarn();
+                break;
+            case SetCellPattern.RightUpGlider:
+                SetPattarn();
+                break;
+            case SetCellPattern.RightDownGlider:
+                SetPattarn();
                 break;
             default:
                 break;
         }
+    }
+    private void SetPattarn()
+    {
+        _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
     }
 }

@@ -13,7 +13,6 @@ public class Cell : MonoBehaviour
     [SerializeField] public int _verticalIndex;
     /// <summary>自身の配列の場所(horizontal)</summary>
     [SerializeField] public int _horizontalIndex;
-  
     /// <summary>周囲に生きているセルが何個あるか</summary>
     public int _count = 0;
 
@@ -67,13 +66,45 @@ public class Cell : MonoBehaviour
                 }
                 break;
             case LifeGame.SetCellPattern.LeftUpGlider:
-                lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 1]._aliveJudg = true;
-                lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
-                lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 1]._aliveJudg = true;
-                lifeGame._cells[_horizontalIndex, _verticalIndex - 1]._aliveJudg = true;
-                lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                {
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex, _verticalIndex - 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+                }
                 break;
-                
+            case LifeGame.SetCellPattern.LeftDownGlider:
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                {
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex, _verticalIndex + 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+                }
+                break;
+            case LifeGame.SetCellPattern.RightUpGlider:
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                {
+                    lifeGame._cells[_horizontalIndex, _verticalIndex - 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 1]._aliveJudg = true;
+                }
+                break;
+            case LifeGame.SetCellPattern.RightDownGlider:
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                {
+                    lifeGame._cells[_horizontalIndex, _verticalIndex + 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 1]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 1]._aliveJudg = true;
+                }
+                break;
             default:
                 break;
         }
