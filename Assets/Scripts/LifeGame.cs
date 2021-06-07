@@ -10,9 +10,25 @@ public class LifeGame : MonoBehaviour
     [SerializeField] int _vertical;
     [SerializeField] int _horizontal;
     [SerializeField] bool _gameState = false;
+    [SerializeField] Dropdown _cellPatternDropdown;
+    [SerializeField] public SetCellPattern _cellPattern = SetCellPattern.None;
+    /// <summary>パターン生成モードか否かの判定</summary>
+    [SerializeField] public bool _setmode = false;
 
-    Cell[,] _cells;
+    public Cell[,] _cells;
 
+    /// <summary>生成する振動子パターン</summary>
+    public enum SetCellPattern
+    {
+        /// <summary>設定なし</summary>
+        None,
+        /// <summary>ブリンカー</summary>
+        Blinker,
+        /// <summary>左上方向に進むグライダー</summary>
+        LeftUpGlider,
+        /// <summary>右上方向に進むグライダー</summary>
+        RightUPGlider
+    }
     private void OnValidate()
     {
         _layOutGroup.constraintCount = _horizontal;
@@ -26,11 +42,13 @@ public class LifeGame : MonoBehaviour
             for (int hori = 0; hori < _horizontal; hori++)
             {
                 var cell = Instantiate(_cell, _layOutGroup.transform);
+                cell._horizontalIndex = hori;
+                cell._verticalIndex = vert;
                 _cells[hori, vert] = cell;
             }
         }
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (_gameState)
         {
@@ -140,6 +158,9 @@ public class LifeGame : MonoBehaviour
             _gameState = false;
         }
     }
+    /// <summary>
+    /// 世代を1つ進める
+    /// </summary>
     public void OneStep()
     {
         foreach (var item in _cells)
@@ -170,6 +191,26 @@ public class LifeGame : MonoBehaviour
             {
                 item._aliveJudg = false;
             }
+        }
+    }
+    public void SelectedCreatePattarn()
+    {
+        switch (_cellPattern)
+        {
+            case SetCellPattern.None:
+                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+                break;
+            case SetCellPattern.Blinker:
+                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+                break;
+            case SetCellPattern.LeftUpGlider:
+                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+                break;
+            case SetCellPattern.RightUPGlider:
+                _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
+                break;
+            default:
+                break;
         }
     }
 }
