@@ -17,7 +17,6 @@ public class Cell : MonoBehaviour
     public int _count = 0;
 
     LifeGame lifeGame;
-
     Image _color;
 
     private void Start()
