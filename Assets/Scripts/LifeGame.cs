@@ -5,17 +5,26 @@ using UnityEngine.UI;
 
 public class LifeGame : MonoBehaviour
 {
-    [SerializeField] Cell _cell = null;
     [SerializeField] GridLayoutGroup _layOutGroup = null;
+    /// <summary>縦に並べる数</summary>
     [SerializeField] public int _vertical;
+    /// <summary>横に並べる数</summary>
     [SerializeField] public int _horizontal;
+    /// <summary>ゲーム中かのフラグ</summary>
     [SerializeField] bool _gameState = false;
+    /// <summary>生成するパターンのドロップダウン</summary>
     [SerializeField] Dropdown _cellPatternDropdown;
+    /// <summary>列挙型の生成パターン</summary>
     [SerializeField] public SetCellPattern _cellPattern = SetCellPattern.None;
     /// <summary>パターン生成モードか否かの判定</summary>
     [SerializeField] public bool _setmode = false;
 
+    [SerializeField] Text _liveText;
+
     public Cell[,] _cells;
+
+    [SerializeField] Cell _cell = null;
+
 
     /// <summary>生成する振動子パターン</summary>
     public enum SetCellPattern
@@ -33,10 +42,12 @@ public class LifeGame : MonoBehaviour
         /// <summary>右下方向に進むグライダー</summary>
         RightDownGlider
     }
+
     private void OnValidate()
     {
         _layOutGroup.constraintCount = _horizontal;
     }
+
     private void Start()
     {
         _cells = new Cell[_horizontal, _vertical];
@@ -52,6 +63,7 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
+
     private void Update()
     {
         if (_cellPattern != 0)
@@ -65,6 +77,8 @@ public class LifeGame : MonoBehaviour
 
         if (_gameState)
         {
+            _liveText.text = "ON LIVE";
+            _liveText.color = Color.red;
             foreach (var item in _cells)
             {
                 item._count = 0;
@@ -72,6 +86,11 @@ public class LifeGame : MonoBehaviour
             AriveJudg();            // 生きているセルの周りにCountを追加する
             NextGeneration();       // 次の世代で生きているかの判定
             StateChenge();          // セルのステートを変える
+        }
+        else
+        {
+            _liveText.text = "OFF LIVE";
+            _liveText.color = Color.blue;
         }
     }
 
