@@ -67,45 +67,59 @@ public class Cell : MonoBehaviour
             case LifeGame.SetCellPattern.LeftUpGlider:
                 if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
                 {
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex, _verticalIndex - 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+                    CreatePattern(true, true, false, true, false, true, true, false, false);
                 }
                 break;
             case LifeGame.SetCellPattern.LeftDownGlider:
                 if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
                 {
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex, _verticalIndex + 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+                    CreatePattern(true, false, false, true, false, true, true, true, false);
                 }
                 break;
             case LifeGame.SetCellPattern.RightUpGlider:
                 if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
                 {
-                    lifeGame._cells[_horizontalIndex, _verticalIndex - 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 1]._aliveJudg = true;
+                    CreatePattern(false, true, true, true, false, true, false, false, true);
                 }
                 break;
             case LifeGame.SetCellPattern.RightDownGlider:
                 if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
                 {
-                    lifeGame._cells[_horizontalIndex, _verticalIndex + 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 1]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
-                    lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 1]._aliveJudg = true;
+                    CreatePattern(false, false, true, true, false, true, false, true, true);
+                }
+                break;
+            case LifeGame.SetCellPattern.Block:
+                if (_horizontalIndex < lifeGame._horizontal && _verticalIndex < lifeGame._vertical)
+                {
+                    CreatePattern(false, false, false, false, true, true, false, true, true);
                 }
                 break;
             default:
                 break;
         }
+    }
+    /// <summary>
+    /// 指定したパターンのセルを生成する。誕生させる場所はTrue
+    /// </summary>
+    /// <param name="leftUp">左上</param>
+    /// <param name="up">上</param>
+    /// <param name="rightUp">右上</param>
+    /// <param name="left">左</param>
+    /// <param name="center">真ん中</param>
+    /// <param name="right">右</param>
+    /// <param name="leftDown">左下</param>
+    /// <param name="down">下</param>
+    /// <param name="rightDown">右下</param>
+    void CreatePattern(bool leftUp, bool up, bool rightUp, bool left, bool center, bool right, bool leftDown, bool down, bool rightDown)
+    {
+        if (leftUp) lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 1]._aliveJudg = true;
+        if (up) lifeGame._cells[_horizontalIndex, _verticalIndex - 1]._aliveJudg = true;
+        if (rightUp) lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 1]._aliveJudg = true;
+        if (left) lifeGame._cells[_horizontalIndex - 1, _verticalIndex]._aliveJudg = true;
+        if (center) lifeGame._cells[_horizontalIndex, _verticalIndex]._aliveJudg = true;
+        if (right) lifeGame._cells[_horizontalIndex + 1, _verticalIndex]._aliveJudg = true;
+        if (leftDown) lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 1]._aliveJudg = true;
+        if (down) lifeGame._cells[_horizontalIndex, _verticalIndex + 1]._aliveJudg = true;
+        if (rightDown) lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 1]._aliveJudg = true;
     }
 }

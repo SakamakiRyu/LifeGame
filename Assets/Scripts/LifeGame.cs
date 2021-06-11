@@ -16,7 +16,7 @@ public class LifeGame : MonoBehaviour
     [SerializeField] Dropdown _cellPatternDropdown;
     /// <summary>列挙型の生成パターン</summary>
     [SerializeField] public SetCellPattern _cellPattern = SetCellPattern.None;
-    /// <summary>パターン生成モードか否かの判定</summary>
+    /// <summary>パターン生成モードか可能かのフラグ</summary>
     [SerializeField] public bool _setmode = false;
 
     [SerializeField] Text _liveText;
@@ -40,7 +40,9 @@ public class LifeGame : MonoBehaviour
         /// <summary>右上方向に進むグライダー</summary>
         RightUpGlider,
         /// <summary>右下方向に進むグライダー</summary>
-        RightDownGlider
+        RightDownGlider,
+        /// <summary>2x2のブロック</summary>
+        Block
     }
 
     private void OnValidate()
@@ -245,6 +247,9 @@ public class LifeGame : MonoBehaviour
                 SetPattarn();
                 break;
             case SetCellPattern.RightDownGlider:
+                SetPattarn();
+                break;
+            case SetCellPattern.Block:
                 SetPattarn();
                 break;
             default:
