@@ -59,37 +59,40 @@ public class Cell : MonoBehaviour
                 Debug.Log("何も設定されていません");
                 break;
             case LifeGame.SetCellPattern.Blinker:
-                for (int i = -1; i < 2; i++)
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal - 1)
                 {
-                    lifeGame._cells[_horizontalIndex + i, _verticalIndex]._aliveJudg = true;
+                    for (int i = -1; i < 2; i++)
+                    {
+                        lifeGame._cells[_horizontalIndex + i, _verticalIndex]._aliveJudg = true;
+                    }
                 }
                 break;
             case LifeGame.SetCellPattern.LeftUpGlider:
-                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal - 1 && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical - 1)
                 {
                     CreatePattern(true, true, false, true, false, true, true, false, false);
                 }
                 break;
             case LifeGame.SetCellPattern.LeftDownGlider:
-                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal - 1 && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical - 1)
                 {
                     CreatePattern(true, false, false, true, false, true, true, true, false);
                 }
                 break;
             case LifeGame.SetCellPattern.RightUpGlider:
-                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal - 1 && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical - 1)
                 {
                     CreatePattern(false, true, true, true, false, true, false, false, true);
                 }
                 break;
             case LifeGame.SetCellPattern.RightDownGlider:
-                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical)
+                if (_horizontalIndex > 0 && _horizontalIndex < lifeGame._horizontal - 1 && _verticalIndex > 0 && _verticalIndex < lifeGame._vertical - 1)
                 {
                     CreatePattern(false, false, true, true, false, true, false, true, true);
                 }
                 break;
             case LifeGame.SetCellPattern.Block:
-                if (_horizontalIndex < lifeGame._horizontal && _verticalIndex < lifeGame._vertical)
+                if (_horizontalIndex < lifeGame._horizontal - 1 && _verticalIndex < lifeGame._vertical - 1)
                 {
                     CreatePattern(false, false, false, false, true, true, false, true, true);
                 }

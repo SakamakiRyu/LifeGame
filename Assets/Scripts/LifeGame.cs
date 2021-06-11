@@ -18,6 +18,8 @@ public class LifeGame : MonoBehaviour
     [SerializeField] public SetCellPattern _cellPattern = SetCellPattern.None;
     /// <summary>パターン生成モードか可能かのフラグ</summary>
     [SerializeField] public bool _setmode = false;
+    /// <summary>ランダム生成の密度(値が大きいほど低くなる)</summary>
+    [SerializeField] int _density;
 
     [SerializeField] Text _liveText;
 
@@ -25,8 +27,7 @@ public class LifeGame : MonoBehaviour
 
     [SerializeField] Cell _cell = null;
 
-
-    /// <summary>生成する振動子パターン</summary>
+    /// <summary>生成するパターン</summary>
     public enum SetCellPattern
     {
         /// <summary>設定なし</summary>
@@ -79,7 +80,7 @@ public class LifeGame : MonoBehaviour
 
         if (_gameState)
         {
-           
+
             foreach (var item in _cells)
             {
                 item._count = 0;
@@ -245,7 +246,7 @@ public class LifeGame : MonoBehaviour
     {
         foreach (var item in _cells)
         {
-            int i = Random.Range(0, 3);
+            int i = Random.Range(0, _density);
             if (i == 0)
             {
                 item._aliveJudg = true;
@@ -288,7 +289,7 @@ public class LifeGame : MonoBehaviour
                 break;
         }
     }
-   
+
     private void SetPattarn()
     {
         _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
