@@ -79,8 +79,7 @@ public class LifeGame : MonoBehaviour
 
         if (_gameState)
         {
-            _liveText.text = "ON LIVE";
-            _liveText.color = Color.red;
+           
             foreach (var item in _cells)
             {
                 item._count = 0;
@@ -89,6 +88,18 @@ public class LifeGame : MonoBehaviour
             NextGeneration();       // 次の世代で生きているかの判定
             StateChenge();          // セルのステートを変える
         }
+    }
+
+    /// <summary>
+    /// ライブテキストの見た目をかえる(色とテキスト)
+    /// </summary>
+    public void ColorChenge()
+    {
+        if (_gameState)
+        {
+            _liveText.text = "ON LIVE";
+            _liveText.color = Color.red;
+        }
         else
         {
             _liveText.text = "OFF LIVE";
@@ -96,6 +107,9 @@ public class LifeGame : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 全てのセルの次の世代の生死判定をする
+    /// </summary>
     void AriveJudg()
     {
         for (int h = 0; h < _horizontal; h++)
@@ -146,6 +160,9 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// セルの次の世代を設定する
+    /// </summary>
     void NextGeneration()
     {
         foreach (var item in _cells)
@@ -174,6 +191,9 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 世代を更新する(Cellの生死の切り替え)
+    /// </summary>
     void StateChenge()
     {
         foreach (var item in _cells)
@@ -181,6 +201,9 @@ public class LifeGame : MonoBehaviour
             item._aliveJudg = item._nextAliveJudg;
         }
     }
+    /// <summary>
+    /// 世代を更新し続ける(Buttonにアサインをして呼び出す。)
+    /// </summary>
     public void GameStart()
     {
         if (!_gameState)
@@ -193,7 +216,7 @@ public class LifeGame : MonoBehaviour
         }
     }
     /// <summary>
-    /// 世代を1つ進める
+    /// 世代を1つ進める(Buttonのプロパティにアサインして使う。)
     /// </summary>
     public void OneStep()
     {
@@ -205,6 +228,9 @@ public class LifeGame : MonoBehaviour
         NextGeneration();       // 次の世代で生きているかの判定
         StateChenge();
     }
+    /// <summary>
+    /// 全てのCellを"死"に切り替える。(Buttonのプロパティにアサインして使う。)
+    /// </summary>
     public void OLLClear()
     {
         foreach (var item in _cells)
@@ -212,6 +238,9 @@ public class LifeGame : MonoBehaviour
             item._aliveJudg = false;
         }
     }
+    /// <summary>
+    /// ランダムに生きているCellをセットする(Buttonのプロパティにアサインして使う。)
+    /// </summary>
     public void RandamSetting()
     {
         foreach (var item in _cells)
@@ -227,6 +256,9 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 生成するパターンを変更する(DropDownのプロパティにアサインして使う。)
+    /// </summary>
     public void SelectedCreatePattarn()
     {
         switch (_cellPattern)
@@ -256,6 +288,7 @@ public class LifeGame : MonoBehaviour
                 break;
         }
     }
+   
     private void SetPattarn()
     {
         _cellPattern = (SetCellPattern)_cellPatternDropdown.value;
