@@ -20,6 +20,8 @@ public class LifeGame : MonoBehaviour
     [SerializeField] public bool _setmode = false;
     /// <summary>ランダム生成の密度(値が大きいほど低くなる)</summary>
     [SerializeField] int _density;
+    /// <summary>生きているセルの数</summary>
+    [SerializeField] int _riveCount = 0;
 
     [SerializeField] Text _liveText;
 
@@ -65,6 +67,7 @@ public class LifeGame : MonoBehaviour
                 _cells[hori, vert] = cell;
             }
         }
+        _liveText.text = "OFF LIVE";
     }
 
     private void Update()
@@ -80,14 +83,19 @@ public class LifeGame : MonoBehaviour
 
         if (_gameState)
         {
-
+            _riveCount = 0;
             foreach (var item in _cells)
             {
                 item._count = 0;
+                if (item._aliveJudg)
+                {
+                    _riveCount++;
+                }
             }
             AriveJudg();            // 生きているセルの周りにCountを追加する
             NextGeneration();       // 次の世代で生きているかの判定
             StateChenge();          // セルのステートを変える
+            Debug.Log(_riveCount);
         }
     }
 
@@ -161,6 +169,7 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// セルの次の世代を設定する
     /// </summary>
@@ -192,6 +201,7 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// 世代を更新する(Cellの生死の切り替え)
     /// </summary>
@@ -202,6 +212,7 @@ public class LifeGame : MonoBehaviour
             item._aliveJudg = item._nextAliveJudg;
         }
     }
+
     /// <summary>
     /// 世代を更新し続ける(Buttonにアサインをして呼び出す。)
     /// </summary>
@@ -216,6 +227,7 @@ public class LifeGame : MonoBehaviour
             _gameState = false;
         }
     }
+
     /// <summary>
     /// 世代を1つ進める(Buttonのプロパティにアサインして使う。)
     /// </summary>
@@ -229,6 +241,7 @@ public class LifeGame : MonoBehaviour
         NextGeneration();       // 次の世代で生きているかの判定
         StateChenge();
     }
+
     /// <summary>
     /// 全てのCellを"死"に切り替える。(Buttonのプロパティにアサインして使う。)
     /// </summary>
@@ -239,6 +252,7 @@ public class LifeGame : MonoBehaviour
             item._aliveJudg = false;
         }
     }
+
     /// <summary>
     /// ランダムに生きているCellをセットする(Buttonのプロパティにアサインして使う。)
     /// </summary>
@@ -257,6 +271,7 @@ public class LifeGame : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// 生成するパターンを変更する(DropDownのプロパティにアサインして使う。)
     /// </summary>
