@@ -21,13 +21,15 @@ public class LifeGame : MonoBehaviour
     /// <summary>ランダム生成の密度(値が大きいほど低くなる)</summary>
     [SerializeField] int _density;
     /// <summary>生きているセルの数</summary>
-    [SerializeField] int _riveCount = 0;
+    [SerializeField] public int _riveCount = 0;
 
     [SerializeField] Text _liveText;
 
     public Cell[,] _cells;
 
     [SerializeField] Cell _cell = null;
+
+    AudioManager _audioManager;
 
     /// <summary>生成するパターン</summary>
     public enum SetCellPattern
@@ -45,7 +47,9 @@ public class LifeGame : MonoBehaviour
         /// <summary>右下方向に進むグライダー</summary>
         RightDownGlider,
         /// <summary>2x2のブロック</summary>
-        Block
+        Block,
+        /// <summary>銀河</summary>
+        Garaxy
     }
 
     private void OnValidate()
@@ -56,7 +60,7 @@ public class LifeGame : MonoBehaviour
     private void Start()
     {
         _cells = new Cell[_horizontal, _vertical];
-
+        _audioManager = GameObject.Find("AudioSource").GetComponent<AudioManager>();
         for (int vert = 0; vert < _vertical; vert++)
         {
             for (int hori = 0; hori < _horizontal; hori++)
@@ -68,9 +72,22 @@ public class LifeGame : MonoBehaviour
             }
         }
         _liveText.text = "OFF LIVE";
+        _liveText.color = Color.blue;
     }
 
-    private void Update()
+    public void CellReset()
+    {
+        _riveCount = 0;
+        _liveText.text = "OFF LIVE";
+        _liveText.color = Color.blue;
+        _gameState = false;
+        _audioManager._onBGM = false;
+        _audioManager._timeBGM = 0;
+        _audioManager._source.Stop();
+        ALLClear();
+    }
+
+    private void FixedUpdate()
     {
         if (_cellPattern != 0)
         {
@@ -250,7 +267,7 @@ public class LifeGame : MonoBehaviour
     /// <summary>
     /// 全てのCellを"死"に切り替える。(Buttonのプロパティにアサインして使う。)
     /// </summary>
-    public void OLLClear()
+    public void ALLClear()
     {
         foreach (var item in _cells)
         {
@@ -303,6 +320,9 @@ public class LifeGame : MonoBehaviour
                 SetPattarn();
                 break;
             case SetCellPattern.Block:
+                SetPattarn();
+                break;
+            case SetCellPattern.Garaxy:
                 SetPattarn();
                 break;
             default:

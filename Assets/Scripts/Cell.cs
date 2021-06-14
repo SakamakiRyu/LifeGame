@@ -57,6 +57,7 @@ public class Cell : MonoBehaviour
             else
             {
                 _aliveJudg = true;
+                _lifeGame._riveCount++;
             }
         }
     }
@@ -107,12 +108,18 @@ public class Cell : MonoBehaviour
                     CreatePattern(false, false, false, false, true, true, false, true, true);
                 }
                 break;
+            case LifeGame.SetCellPattern.Garaxy:
+                if (_horizontalIndex > 4 && _horizontalIndex < _lifeGame._horizontal - 4 && _verticalIndex > 4 && _verticalIndex < _lifeGame._vertical - 4)
+                {
+                    CreateGaraxy();
+                }
+                break;
             default:
                 break;
         }
     }
     /// <summary>
-    /// 指定したパターンのセルを生成する。誕生させる場所はTrue
+    /// 指定したパターンのセルを生成する(9 * 9)。誕生させる場所はTrue
     /// </summary>
     /// <param name="leftUp">左上</param>
     /// <param name="up">上</param>
@@ -125,6 +132,7 @@ public class Cell : MonoBehaviour
     /// <param name="rightDown">右下</param>
     void CreatePattern(bool leftUp, bool up, bool rightUp, bool left, bool center, bool right, bool leftDown, bool down, bool rightDown)
     {
+        _lifeGame._riveCount++;
         if (leftUp) _lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 1]._aliveJudg = true;
         if (up) _lifeGame._cells[_horizontalIndex, _verticalIndex - 1]._aliveJudg = true;
         if (rightUp) _lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 1]._aliveJudg = true;
@@ -134,5 +142,72 @@ public class Cell : MonoBehaviour
         if (leftDown) _lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 1]._aliveJudg = true;
         if (down) _lifeGame._cells[_horizontalIndex, _verticalIndex + 1]._aliveJudg = true;
         if (rightDown) _lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 1]._aliveJudg = true;
+    }
+    /// <summary>
+    /// 銀河を生成
+    /// </summary>
+    public void CreateGaraxy()
+    {
+        _lifeGame._riveCount++;
+       　// 一段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex - 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex - 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex, _verticalIndex - 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 2, _verticalIndex - 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex - 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex - 4]._aliveJudg = true;
+        // 二段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex - 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex - 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 1, _verticalIndex - 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex, _verticalIndex - 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 1, _verticalIndex - 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 2, _verticalIndex - 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex - 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex - 3]._aliveJudg = true;
+        // 三段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex - 2]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex - 2]._aliveJudg = true;
+        // 四段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex - 1]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex - 1]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex - 1]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex - 1]._aliveJudg = true;
+        // 五段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex]._aliveJudg = true;
+        // 六段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex + 1]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex + 1]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex + 1]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex + 1]._aliveJudg = true;
+
+        // 七段目
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex + 2]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex + 2]._aliveJudg = true;
+
+        // 八段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex + 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex + 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 2, _verticalIndex + 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex, _verticalIndex + 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex + 3]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex + 3]._aliveJudg = true;
+
+        // 九段目
+        _lifeGame._cells[_horizontalIndex - 4, _verticalIndex + 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 3, _verticalIndex + 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 2, _verticalIndex + 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex - 1, _verticalIndex + 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex, _verticalIndex + 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 1, _verticalIndex + 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 3, _verticalIndex + 4]._aliveJudg = true;
+        _lifeGame._cells[_horizontalIndex + 4, _verticalIndex + 4]._aliveJudg = true;
     }
 }

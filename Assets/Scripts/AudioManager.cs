@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    AudioSource _source;
+    public AudioSource _source;
 
-    private bool _onBGM = false;
+    public bool _onBGM = false;
 
-    float _timeGBM;
+    public float _timeBGM;
 
     private void Start()
     {
@@ -23,13 +23,13 @@ public class AudioManager : MonoBehaviour
     {
         if (_onBGM)
         {
-            _timeGBM = _source.time;
+            _timeBGM = _source.time;
             _source.Stop();
             _onBGM = false;
         }
         else
         {
-            _source.time = _timeGBM;
+            _source.time = _timeBGM;
             _source.Play();
             _onBGM = true;
         }
