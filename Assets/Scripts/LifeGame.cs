@@ -218,6 +218,11 @@ public class LifeGame : MonoBehaviour
     /// </summary>
     public void GameStart()
     {
+        if (_riveCount == 0)
+        {
+            RandamSetting();
+        }
+
         if (!_gameState)
         {
             _gameState = true;
